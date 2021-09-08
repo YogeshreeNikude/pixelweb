@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Registeration page</title>
+  <link rel="stylesheet" href="Registerpagestyle.css">
+</head>
+
+<body>
+  <div class="center">
+    <h1>Register Here</h1>
+    <form onsubmit="return validation()" action="verification.html">
+      <!-- for username -->
+      <div class="txt_field">
+        <input type="text" id="usern" required autocomplete="off">
+        <span></span>
+        <label>Username</label>
+        <div class="divm">
+          <span id="nameerror" class="form-input"></span>
+        </div>
+      </div>
+      <!-- for email -->
+      <div class="txt_field">
+        <input type="text" id="useremail" required autocomplete="off">
+        <span></span>
+        <label>Email</label>
+        <div class="divm">
+          <span id="emailerror" class="form-input"></span>
+        </div>
+      </div>
+      <!-- for phone number -->
+      <div class="txt_field">
+        <input type="tel" class="phone-number" id="phone" required autocomplete="off" onkeyup="handlePhoneNumber()">
+        <span class="operator"></span>
+        <span class="state"></span>
+        <label>Phone number</label>
+        <div class="divm">
+          <span id="phoneerror" class="form-input"></span>
+        </div>
+      </div>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <script type="text/javascript">
+    function validation() {
+      var username = document.getElementById("usern").value;
+      var email = document.getElementById("useremail").value;
+      var phonenumber = document.getElementById("phone").value;
+
+      var usercheck = /^([a-z A-Z]{4,20})\s([a-z A-Z]{4,20})$/; // regular expression for user name validation
+      var emailcheck = /^([a-z 0-9\.-_]+)@([a-z 0-9-]+)[.]{1}([a-z]{2,8})(.[a-z]{2,8})?$/; // regular expression for email validation
+    
+      if (usercheck.test(username)) {
+        document.getElementById("nameerror").innerHTML = " ";
+      }
+      else {
+        document.getElementById("nameerror").innerHTML = "**Invalid user name";
+        return false;
+      }
+
+      if (emailcheck.test(email)) {
+        document.getElementById("emailerror").innerHTML = " ";
+      }
+      else {
+        document.getElementById("emailerror").innerHTML = "**Invalid user name";
+        return false;
+      }
+    }
+
+    function handlePhoneNumber() {
+      var phoneNo = document.getElementById("phone").value;
+      if (phoneNo === "") {
+        document.getElementsByClassName("operator")[0].innerHTML = "";
+        document.getElementsByClassName("state")[0].innerHTML = "";
+      }
+
+      phoneNoRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/; // Regular expression for phone number validation
+      if (phoneNo.length === 3) {
+        
+        // phoneNo = parseInt(phoneNo);
+
+        var operatorCheck = parseInt(phoneNo);
+        operator = getOperator(operatorCheck);
+        document.getElementsByClassName("operator")[0].innerHTML = operator;
+        document.getElementById("phone").value = "(" + phoneNo + ")" + "-"
+      }
+
+      if (phoneNo.length === 9) {
+        var stateExtract = parseInt(phoneNo.substring(6));
+        var stateVal = document.getElementsByClassName("state")[0].innerHTML;
+        var state = getState(stateExtract);
+        document.getElementsByClassName("state")[0].innerHTML = state;
+
+        document.getElementById("phone").value = phoneNo + "-"
+
+      }
+
+      if (phoneNoRegex.test(phoneNo)) {
+        document.getElementById("phoneerror").innerHTML = " ";
+      }
+      else {
+        document.getElementById("phoneerror").innerHTML = "**Invalid Phone Number";
+        return false;
+      }
+    }
+
+    // For identify the operator
+    function getOperator(operatorCheck) {
+      var operatorName = ""
+      if (operatorCheck >= 621 && operatorCheck <= 799) {
+        // document.getElementsByClassName("operator")[0].innerHTML = "Jio, "
+        operatorName = "Jio, "
+      } else if (operatorCheck >= 801 && operatorCheck <= 920) {
+        operatorName = "Idea, "
+      } else if (operatorCheck >= 921 && operatorCheck <= 999) {
+        operatorName = "Vodafone, "
+      } else {
+        operatorName = "NA, "
+        document.getElementById("phoneerror").innerHTML = "**Invalid Phone Number";
+      }
+      return operatorName;
+    }
+
+    // For identify the state
+    function getState(state) {
+      var stateVal = "";
+      switch (state) {
+        case 101: {
+          stateVal = "Andhra Pradesh";
+          break;
+        }
+
+        case 102: {
+          stateVal = "Arunachal Pradesh";
+          break;
+        }
+
+        case 103: {
+          stateVal = "Assam";
+          break;
+        }
+
+        case 104: {
+          stateVal = "Bihar";
+          break;
+        }
+
+        case 105: {
+          stateVal = "Chhattisgarh";
+          break;
+        }
+
+        case 106: {
+          stateVal = "Goa";
+          break;
+        }
+
+        case 107: {
+          stateVal = "Gujrat";
+          break;
+        }
+
+        case 108: {
+          stateVal = "Haryana";
+          break;
+        }
+
+        case 109: {
+          stateVal = "Himachal Pradesh";
+          break;
+        }
+
+        case 110: {
+          stateVal = "Jharkhand";
+          break;
+        }
+
+        case 111: {
+          stateVal = "Karnataka";
+          break;
+        }
+
+        case 112: {
+          stateVal = "Kerala";
+          break;
+        }
+
+        case 113: {
+          stateVal = "Madhya Pradesh";
+          break;
+        }
+
+        case 114: {
+          stateVal = "Maharashtra";
+          break;
+        }
+
+        case 115: {
+          stateVal = "Manipur";
+          break;
+        }
+
+        case 116: {
+          stateVal = "Meghalaya";
+          break;
+        }
+
+        case 117: {
+          stateVal = "Mizoram";
+          break;
+        }
+
+        case 118: {
+          stateVal = "Nagaland";
+          break;
+        }
+
+        case 119: {
+          stateVal = "Odisha";
+          break;
+        }
+
+        case 120: {
+          stateVal = "Punjab";
+          break;
+        }
+
+        case 121: {
+          stateVal = "Rajasthan";
+          break;
+        }
+
+        case 122: {
+          stateVal = "Sikkim";
+          break;
+        }
+
+        case 123: {
+          stateVal = "Tamil Nadu";
+          break;
+        }
+
+        case 124: {
+          stateVal = "Telangana";
+          break;
+        }
+
+        case 125: {
+          stateVal = "Tripura";
+          break;
+        }
+
+        case 126: {
+          stateVal = "Uttar Pradesh";
+          break;
+        }
+
+        case 127: {
+          stateVal = "Uttarakhand";
+          break;
+        }
+
+        case 128: {
+          stateVal = "West Bengal";
+          break;
+        }
+
+        case 129: {
+          stateVal = "Andaman and Nicobar Islands";
+          break;
+        }
+
+        case 130: {
+          stateVal = "Chandigarh";
+          break;
+        }
+
+        case 131: {
+          stateVal = "Dadra Nagar Haveli and Daman Diu";
+          break;
+        }
+
+        case 132: {
+          stateVal = "Delhi";
+          break;
+        }
+
+        case 133: {
+          stateVal = "Jammu and Kashmir";
+          break;
+        }
+
+        case 134: {
+          stateVal = "Ladakh";
+          break;
+        }
+
+        case 135: {
+          stateVal = "Lakshadweep";
+          break;
+        }
+
+        case 136: {
+          stateVal = "Puducherry";
+          break;
+        }
+
+        default: {
+          stateVal = "NA"
+        }
+      }
+
+      return stateVal;
+    }
+  </script>
+</body>
+
+</html>
